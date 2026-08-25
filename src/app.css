@@ -1,0 +1,290 @@
+/* ============================================================
+   LEAKR — Global Design Tokens & Base Styles
+   app.css — imported once in +layout.svelte
+   ============================================================ */
+
+@import 'tailwindcss';
+
+/* ── 1. Design Tokens ─────────────────────────────────────── */
+:root {
+  /* Colors - Premium Orange Design System */
+  --mist:       #FAF6F2; /* Premium warm ivory background */
+  --surface:    #FFFFFF;
+  --ink:        #1C1613; /* Premium dark warm charcoal */
+  --slate:      #4E4744; /* Darker secondary warm grey for high contrast */
+  --teal:       #FF5A1F; /* Primary brand signal (Orange) */
+  --teal-soft:  #FDF1E8; /* Gentle warm cream orange */
+  --amber:      #E11D48; /* Vibrant crimson red for urgency */
+
+  /* Typography */
+  --fs-hero:  clamp(2.2rem, 4vw + 1rem, 4.4rem);
+  --fs-h2:    clamp(2rem, 3vw + 1rem, 3.2rem);
+  --fs-h3:    1.5rem;
+  --fs-body:  1.125rem;
+  --fs-small: 0.9rem;
+  --fs-data:  1rem;
+
+  /* Spacing */
+  --space-xs:  8px;
+  --space-sm:  16px;
+  --space-md:  24px;
+  --space-lg:  40px;
+  --space-xl:  64px;
+  --space-2xl: 96px;
+  --space-3xl: 144px;
+
+  /* Radius */
+  --r-sm:   14px;
+  --r-md:   24px;
+  --r-lg:   40px;
+  --r-full: 999px;
+
+  /* Shadows — Orange-tinted premium drop shadows */
+  --shadow-puddle:       0 24px 48px -20px rgba(255, 90, 31, 0.16), 0 4px 10px -4px rgba(28, 22, 19, 0.05);
+  --shadow-puddle-hover: 0 32px 64px -16px rgba(255, 90, 31, 0.24), 0 8px 16px -4px rgba(28, 22, 19, 0.08);
+  --shadow-puddle-sm:    0 12px 24px -10px rgba(255, 90, 31, 0.12), 0 2px 6px -2px rgba(28, 22, 19, 0.04);
+
+  /* Motion */
+  --ease-droplet: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-reveal:   500ms;
+  --dur-hover:    260ms;
+  --dur-nav:      300ms;
+}
+
+/* ── 2. Tailwind Custom Theme ─────────────────────────────── */
+@theme {
+  /* Colors */
+  --color-mist:       #FAF6F2;
+  --color-surface:    #FFFFFF;
+  --color-ink:        #1C1613;
+  --color-slate:      #4E4744;
+  --color-teal:       #FF5A1F;
+  --color-teal-soft:  #FDF1E8;
+  --color-amber:      #E11D48;
+
+  /* Fonts */
+  --font-display: 'Fraunces', serif;
+  --font-body:    'IBM Plex Sans', sans-serif;
+  --font-data:    'IBM Plex Mono', monospace;
+
+  /* Radius */
+  --radius-sm:   14px;
+  --radius-md:   24px;
+  --radius-lg:   40px;
+  --radius-full: 999px;
+
+  /* Shadows */
+  --shadow-puddle:       0 24px 48px -20px rgba(255, 90, 31, 0.16), 0 4px 10px -4px rgba(28, 22, 19, 0.05);
+  --shadow-puddle-hover: 0 32px 64px -16px rgba(255, 90, 31, 0.24), 0 8px 16px -4px rgba(28, 22, 19, 0.08);
+  --shadow-puddle-sm:    0 12px 24px -10px rgba(255, 90, 31, 0.12), 0 2px 6px -2px rgba(28, 22, 19, 0.04);
+}
+
+/* ── 3. Base Reset ────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 18px;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--ink);
+  background-color: var(--mist);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── 4. Typography Utilities ──────────────────────────────── */
+.font-display { font-family: 'Fraunces', serif; }
+.font-body    { font-family: 'IBM Plex Sans', sans-serif; }
+.font-data    { font-family: 'IBM Plex Mono', monospace; }
+
+h1, .h1 {
+  font-family: 'Fraunces', serif;
+  font-size: var(--fs-hero);
+  font-weight: 420;
+  letter-spacing: -0.01em;
+  line-height: 1.08;
+  color: var(--ink);
+}
+
+h2, .h2 {
+  font-family: 'Fraunces', serif;
+  font-size: var(--fs-h2);
+  font-weight: 460;
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+h3, .h3 {
+  font-family: 'Fraunces', serif;
+  font-size: var(--fs-h3);
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--ink);
+}
+
+p {
+  color: var(--slate);
+}
+
+/* Premium Text Gradient */
+.text-gradient-orange {
+  background: linear-gradient(135deg, #FF8A50 0%, #FF5A1F 45%, #C23900 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── 5. Scroll-Reveal ─────────────────────────────────────── */
+.reveal-target {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--dur-reveal) var(--ease-droplet),
+    transform var(--dur-reveal) var(--ease-droplet);
+}
+
+.reveal-target.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── 6. Reduced Motion ────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-target {
+    transform: none;
+    transition: opacity 200ms ease;
+  }
+
+  .trickle-path {
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
+  }
+
+  .animate-pulse-soft {
+    animation: none !important;
+  }
+
+  .animate-float, .animate-float-slow, .animate-spin-slow, .animate-pulse-scale {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ── 7. Urgency Pulse ─────────────────────────────────────── */
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.82; transform: scale(0.96); }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2.4s ease-in-out infinite;
+}
+
+/* ── 8. Ripple (button click effect) ─────────────────────── */
+@keyframes ripple-expand {
+  0%   { transform: scale(0); opacity: 0.35; }
+  100% { transform: scale(4); opacity: 0; }
+}
+
+.ripple-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  width: 60px;
+  height: 60px;
+  margin-top: -30px;
+  margin-left: -30px;
+  pointer-events: none;
+  animation: ripple-expand 500ms ease-out forwards;
+}
+
+/* ── 9. Focus Visible (Accessibility) ────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+
+/* ── 10. Floating & Spinning Animations ────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(-1.5deg); }
+  50%      { transform: translateY(-10px) rotate(-0.5deg); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-8px); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes pulse-scale {
+  0%, 100% { transform: scale(1); opacity: 0.15; }
+  50%      { transform: scale(1.18); opacity: 0.32; }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 25s linear infinite;
+}
+
+.animate-pulse-scale {
+  animation: pulse-scale 10s ease-in-out infinite;
+}
+
+/* ── 11. Utility Classes ──────────────────────────────────── */
+.shadow-puddle       { box-shadow: var(--shadow-puddle); }
+.shadow-puddle-hover { box-shadow: var(--shadow-puddle-hover); }
+.shadow-puddle-sm    { box-shadow: var(--shadow-puddle-sm); }
+
+/* Glassmorphism card styles */
+.glass-card {
+  background: rgba(255, 255, 255, 0.72) !important;
+  backdrop-filter: blur(20px) saturate(140%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+}
+
+.glass-card-orange {
+  background: rgba(253, 241, 232, 0.6) !important;
+  backdrop-filter: blur(20px) saturate(140%) !important;
+  border: 1px solid rgba(255, 90, 31, 0.15) !important;
+}
+
+.section-pad {
+  padding-top: var(--space-2xl);
+  padding-bottom: var(--space-2xl);
+}
+
+@media (min-width: 1024px) {
+  .section-pad {
+    padding-top: var(--space-3xl);
+    padding-bottom: var(--space-3xl);
+  }
+}
+
+/* Grid transition for accordion */
+.grid-rows-0 { grid-template-rows: 0fr; }
+.grid-rows-1 { grid-template-rows: 1fr; }
